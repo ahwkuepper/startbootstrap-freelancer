@@ -29,6 +29,58 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
+
+    <!--Load the AJAX API-->
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+	<script type="text/javascript">
+
+   		google.load("visualization", "1", {packages:["corechart", "geochart", "table"]});
+
+
+		// piechart and simple geochart
+
+    	google.setOnLoadCallback(drawRegionsMap1);
+    	function drawRegionsMap1() {
+        	var data = new google.visualization.DataTable();
+        	data.addColumn('string', 'Federeal state');
+        	data.addColumn('number', 'Population');
+        	data.addRows([[{f: 'Baden-Wurttemberg', v: 'DE-BW'}, {v:
+            	10569100, f: '10,569,100'}],
+            	[{f: 'Bavaria', v: 'DE-BY'}, {v: 12519600, f: '12,519,600'}],
+            	[{f: 'Berlin', v: 'DE-BE'}, {v: 3375200, f: '3,375,200'}],
+            [{f: 'Brandenburg', v: 'DE-BB'}, {v: 2449500, f: '2,449,500'}],
+            [{f: 'Bremen', v: 'DE-HB'}, {v: 654800, f: '654,800'}],
+            [{f: 'Hamburg', v: 'DE-HH'}, {v: 1734300, f: '1,734,300'}],
+            [{f: 'Hesse', v: 'DE-HE'}, {v: 6016500, f: '6,016,500'}],
+            [{f: 'Lower Saxony', v: 'DE-NI'}, {v: 7779000, f: '7,779,000'}],
+            [{f: 'Mecklenburg-Western Pomerania', v: 'DE-MV'}, {v: 1600300, f: '1,600,300'}],
+            [{f: 'North Rhine-Westphalia', v: 'DE-NW'}, {v: 17554300, f: '17,554,300'}],
+            [{f: 'Rhineland-Palatinate', v: 'DE-RP'}, {v: 3990300, f: '3,990,300'}],
+            [{f: 'Saarland', v: 'DE-SL'}, {v: 994300, f: '994,300'}],
+            [{f: 'Saxony', v: 'DE-SN'}, {v: 4050200, f: '4,050,200'}],
+            [{f: 'Saxony-Anhalt', v: 'DE-ST'}, {v: 2259400, f: '2,259,400'}],
+            [{f: 'Schleswig-Holstein', v: 'DE-SH'}, {v: 2806500, f: '2,806,500'}],
+            [{f: 'Thuringia', v: 'DE-TH'}, {v: 2170500, f: '2,170,500'}]]);
+
+//var pie_options = {'title':'Population of German Federal States (2013)',
+//'height':530};
+
+//var pie_chart = new google.visualization.PieChart(document.getElementById('pie_chart_germany_div'));
+//pie_chart.draw(data, pie_options);
+
+var map_options = {region: 'DE', 'resolution':'provinces', 'width':900};
+
+var map_chart = new google.visualization.GeoChart(document.getElementById('map_chart_germany_div'));
+map_chart.draw(data, map_options);
+
+}
+
+</script>
+
+
+
 </head>
 
 <body id="page-top" class="index">
@@ -172,10 +224,10 @@
             </div>
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-2">
-                    <p>I'm a German astrophysicist working at Columbia University.</p>
+                    <p>I'm a German astrophysicist working at Columbia University. Trained on astrophysical problems, I have ample experience in the acquisition, cleaning and analysis of data. The focus of my academic research is on statistical modeling of stellar systems, and on high-performance computations. I combine both to gain insights on the gravitational field of the Milky Way, its dark matter content, and the dynamics of galactic satellites.</p>
                 </div>
                 <div class="col-lg-4">
-                    <p>Here I am showcasing my work with data.</p>
+                    <p>Here I am showcasing my work with non-astronomy data. I present little side projects that I have carried out in the past out just for fun. I realized that transferring my skills from academic questions to real-world problems is highly satisfying. It gives me the possibility to have real impact on people and affect their lives for the better. Therefore I am looking for a transition into health data science now. Please don't hesitate to contact me!</p>
                 </div>
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <a href="./downloads/resume.pdf" class="btn btn-lg btn-outline">
@@ -304,12 +356,17 @@
             </div>
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
+                    <div class="col-lg-10 col-lg-offset-1">
                         <div class="modal-body">
-                            <h2>Project Title</h2>
+                            <h2>Data Science in Germany</h2>
                             <hr class="star-primary">
-                            <img src="img/portfolio/cabin.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
+<!--                            <div id="pie_chart_germany_div" style="centered"></div> -->
+<center>
+                            <div id="map_chart_germany_div" style=""></div>
+</center>
+<!--                            <img src="some_url..." style="border:red 5px solid; width:100px; height:100px"> display:flex;justify-content:center;align-items:center;-->
+<!--                            <img src="img/portfolio/cabin.png" class="img-responsive img-centered" alt=""> -->
+                            <p> INSERT PROJECT DESCRIPTION HERE we can add a lot of text and at some point we will see that it has a carriage return due to the end of the screen. </p>
                             <ul class="list-inline item-details">
                                 <li>Client:
                                     <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
