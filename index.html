@@ -35,16 +35,18 @@
     <script type="text/javascript">
 
     /* 
-     * Some data exploration of the German academic landscape and the role of data science in Germany
+     * Some data exploration of the German academic landscape
      */
 
-        google.load("visualization", "1", {packages:["corechart", "geochart", "table"]});
+        // get the google chart library
+        google.load("visualization", "1", {packages:["geochart"]});
     
-        // piechart and simple geochart
+    	// draw geochart with underlying data
         google.setOnLoadCallback(drawRegionsMap1);
 
         function drawRegionsMap1() {
 
+        	//write json-style data table
             var data = new google.visualization.DataTable();
             
             data.addColumn('string', 'State');
@@ -78,53 +80,60 @@
                 [{f: 'Thuringia', v: 'DE-TH'}, 2170500, 53231, 10308, 11290, 9556, 1134, 4082, 1913, 653, 869, 73]
                 ]);
 
+            //set options for geochart 
             var map_options = {region: 'DE', 'resolution':'provinces', width:900};
             
+            //modify table with html elements
             document.getElementById('relabs').onchange = function() {
                 if (this.value == 'relative') {
                     for(var i=0; i<16; i++) {
                         for(var j=1; j<12; j++) {
                             if (j!== 2) {
-                                data.setValue(i,j,data.getValue(i,j)/data.getValue(i,2));
+                                data.setValue(i,j,data.getValue(i,j)/data.getValue(i,2)); //divide numbers by stundent #
                             }
                         }
                     }
                     for(var j=1; j<12; j++) {
                         if (j!== 2) {
-                            rel_formatter.format(data, j);
+                            rel_formatter.format(data, j); //don't divide student numbers by student #
                         }
                     }
                 } else if (this.value == 'absolute') {
                     for(var i=0; i<16; i++) {
                         for(var j=1; j<12; j++) {
                             if (j!== 2) {
-                                data.setValue(i,j,data.getValue(i,j)*data.getValue(i,2));
+                                data.setValue(i,j,data.getValue(i,j)*data.getValue(i,2)); //convert back to absolute numbers
                             }
                         }
                     }
                     for(var j=1; j<12; j++) {
                         if (j!== 2) {
-                            formatter.format(data, j);
+                            formatter.format(data, j); //don't convert student number
                         }
                     }
                 }
-                map_chart.draw(view, map_options);
+                map_chart.draw(view, map_options); //re-draw the geochart
             }
 
-            var view = new google.visualization.DataView(data);
+			//create a view of the table for drawing the geochart
+            var view = new google.visualization.DataView(data); 
             view.setColumns([0, 1]);
 
-            var rel_formatter = new google.visualization.NumberFormat(
+            //set output format of hover text
+            var rel_formatter = new google.visualization.NumberFormat( 
                 {groupingSymbol: ',', fractionDigits: 4});
 
             var formatter = new google.visualization.NumberFormat(
                 {groupingSymbol: ',', fractionDigits: 0});
             formatter.format(data, 1);
 
-
+            //create geochart object and set div ID
             var map_chart = new google.visualization.GeoChart(document.getElementById('map_chart_germany_div'));
+
+            //draw the chart
             map_chart.draw(view, map_options);
 
+            //modify the data view with html element
             document.getElementById('column-select').onchange = function() {
                 if (this.value == 1) {
                     view.setColumns([0, 1]);
@@ -149,7 +158,7 @@
                 } else if (this.value == 11) {
                     view.setColumns([0, 11]);
                 }
-                map_chart.draw(view, map_options);
+                map_chart.draw(view, map_options); //re-draw the geochart
             };
 
         };
@@ -242,7 +251,7 @@
                         <img src="img/portfolio/difference_maps_icon.png" class="img-responsive" alt="" style="border:4px solid #18bc9c">
                     </a>
                 </div>
-                <div class="col-sm-4 portfolio-item">
+<!--                <div class="col-sm-4 portfolio-item">
                     <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
                         <div class="caption">
                             <div class="caption-content">
@@ -251,7 +260,7 @@
                         </div>
                         <img src="img/portfolio/circus.png" class="img-responsive" alt="" style="border:4px solid #18bc9c">
                     </a>
-                </div>
+                </div> -->
             </div>
           <!--  <div class="row">               
                 <div class="col-sm-4 portfolio-item">
@@ -324,8 +333,6 @@
             </div>
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
                     <form name="sentMessage" id="contactForm" novalidate>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
@@ -454,16 +461,28 @@
                                 <option value="absolute" selected>Absolute numbers</option>
                                 <option value="relative">Relative to number of students</option>
                             </select>
-                            <p></br> INSERT PROJECT DESCRIPTION HERE we can add a lot of text and at some point we will see that it has a carriage return due towards the end of the screen. </p>
+                            <p></br> Google Charts allows interactive visualization and basic manipulation of JSON data tables. Data with geographical context can be presented as map, giving us an easier and more intuitive access to the data. In the example above, I present a set of 16 tables summarizing key quantities of the German academic system. The 16 PDF documents (one for each Federal State) are intended for foreigners to give them a first overview of the German academic landscape. I extracted the numbers from the PDFs with a Python script using a PDF extractor and regular expression filtering. Then I used the Google Charts API to visualize the data in one geochart representation. The JavaScript object is complemented by two HTML elements, which allow us to change the plotted column of the data table, and normalize the quantities to the numbers of students in the respective Federal State. Such interactive representations can be helpful for quick and intuitive data exploration.</p>
                             <ul class="list-inline item-details">
                                 <li>Data source:
                                     <strong><a href="https://www.daad.de/der-daad/zahlen-und-fakten/de/29877-daad-bundeslaenderstatistiken">DAAD</a>
+                                    </strong>
+                                </li>
+                                <li>Data extraction:
+                                    <strong><a href="http://github.com">Python script</a>
                                     </strong>
                                 </li>
                                 <li>API:
                                     <strong><a href="https://developers.google.com/chart/">Google Charts</a>
                                     </strong>
                                 </li>
+                                <li>Visualization:
+                                    <strong><a href="./js/geochart.js">JavaScript code</a>
+                                    </strong>                                     
+                                <strong>
+                                </strong>
+
+                                </li>
+
                             </ul>
                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
                         </div>
@@ -487,18 +506,23 @@
                             <h2>Twitter Sentiment Analysis</h2>
                             <hr class="star-primary">
                             <img src="img/portfolio/difference_maps.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
+                            <p>Twitter is an invaluable source of insights on trends and opinions in society. During public events such as the Presidential Primary Debates, analyses of the Twitter live stream allow us to collect large, contextual data sets in a short amount of time. During the March 3, 2016, Republican Debate in XXX between Donald Trump, Ted Cruz, Marco Rubio and John Kasich, I analyzed the Twitter stream and filtered out some 16,000 tweets containing at least one of the candidates' last names. For each candidate I counted the occurences of words in tweets they were mentioned in. I matched the 1000 most frequently used words for each of the candidates with the Affective Norm of English Words (ANEW) dictionary containing 1030 rated words. The graphical represenation of these scores and their standard deviations yields psychological valence (pleasure) and arousal (excitement) ratings for the Twitter reactions to the candidates' performances during the debate. The plot above shows the differential valence and arousal ratings of the most frequently used words for each candidate with respect to their common mean. Lines show standard deviations above or below the mean. 
+                            </p>
                             <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
+                                <li>Data source:
+                                    <strong><a href="http://www.twitter.com">Twitter API</a>
                                     </strong>
                                 </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
+                                <li>Data acquisition:
+                                    <strong><a href="http://github.com">Python script</a>
                                     </strong>
                                 </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
+                                <li>ANEW:
+                                    <strong><a href="http://startbootstrap.com">Bradley & Lang (1999)</a>
+                                    </strong>
+                                </li>
+                                <li>Data analysis/visualization:
+                                    <strong><a href="http://github.com">Python script</a>
                                     </strong>
                                 </li>
                             </ul>
@@ -546,117 +570,7 @@
             </div>
         </div>
     </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
-                            <hr class="star-primary">
-                            <img src="img/portfolio/game.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
-                            <hr class="star-primary">
-                            <img src="img/portfolio/safe.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
-                            <hr class="star-primary">
-                            <img src="img/portfolio/submarine.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
@@ -676,7 +590,7 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/freelancer.js"></script>
 
-
+    <!-- Google Analytics Traffic Tracking -->
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
