@@ -238,7 +238,7 @@
                                 <i class="fa fa-search-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="img/portfolio/mapGermany.png" class="img-responsive" alt="" style="border:4px solid #18bc9c">
+                        <img src="img/portfolio/difference_maps_icon.png" class="img-responsive" alt="" style="border:4px solid #18bc9c">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
@@ -248,7 +248,7 @@
                                 <i class="fa fa-search-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="img/portfolio/difference_maps_icon.png" class="img-responsive" alt="" style="border:4px solid #18bc9c">
+                        <img src="img/portfolio/mapGermany.png" class="img-responsive" alt="" style="border:4px solid #18bc9c">
                     </a>
                 </div>
 <!--                <div class="col-sm-4 portfolio-item">
@@ -440,6 +440,48 @@
                 <div class="row">
                     <div class="col-lg-10 col-lg-offset-1">
                         <div class="modal-body">
+                            <h2>Twitter Sentiment Analysis</h2>
+                            <hr class="star-primary">
+                            <img src="img/portfolio/difference_maps.png" class="img-responsive img-centered" alt="">
+                            <p>Twitter is an invaluable source of insights on trends and opinions in our society. During public events such as the Presidential Debates, analyses of the Twitter live stream allow us to collect large, contextual data sets in a short amount of time. During the March 3, 2016, Republican Debate in Detroit between Donald Trump, Ted Cruz, Marco Rubio and John Kasich, I analyzed the Twitter stream and filtered out some 16,000 tweets containing at least one of the candidates' last names. For each candidate I counted the occurences of words in tweets they were mentioned in. I matched the 1000 most frequently used words for each of the candidates with the Affective Norm of English Words (ANEW) dictionary containing 1030 rated words. The graphical represenation of these scores and their standard deviations yields psychological valence (pleasure) and arousal (excitement) ratings for the Twitter reactions to the candidates' performances during the debate. The plot above shows the differential valence and arousal ratings of the most frequently used words for each candidate with respect to their common mean. Lines show standard deviations above or below the mean. The most significant result is that John Kasich evokes the least unpleasant Twitter reactions from all four candidates.
+                            </p>
+                            <ul class="list-inline item-details">
+                                <li>Data source:
+                                    <strong><a href="https://dev.twitter.com/streaming/overview">Twitter API</a>
+                                    </strong>
+                                </li>
+                                <li>Data acquisition:
+                                    <strong><a href="https://github.com/ahwkuepper/twitter_sentiment_analysis/blob/master/gop.py">Python script</a>
+                                    </strong>
+                                </li>
+                                <li>ANEW:
+                                    <strong><a href="http://www.uvm.edu/~pdodds/teaching/courses/2009-08UVM-300/docs/others/everything/bradley1999a.pdf">Bradley & Lang (1999)</a>
+                                    </strong>
+                                </li>
+                                <li>Data analysis/visualization:
+                                    <strong><a href="https://github.com/ahwkuepper/twitter_sentiment_analysis/blob/master/gop_analysis.py">Python script</a>
+                                    </strong>
+                                </li>
+                            </ul>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 col-lg-offset-1">
+                        <div class="modal-body">
                             <h2>Academia in Germany</h2>
                             <hr class="star-primary">
                             <div id="map_chart_germany_div"></div>
@@ -483,48 +525,6 @@
 
                                 </li>
 
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-10 col-lg-offset-1">
-                        <div class="modal-body">
-                            <h2>Twitter Sentiment Analysis</h2>
-                            <hr class="star-primary">
-                            <img src="img/portfolio/difference_maps.png" class="img-responsive img-centered" alt="">
-                            <p>Twitter is an invaluable source of insights on trends and opinions in our society. During public events such as the Presidential Debates, analyses of the Twitter live stream allow us to collect large, contextual data sets in a short amount of time. During the March 3, 2016, Republican Debate in Detroit between Donald Trump, Ted Cruz, Marco Rubio and John Kasich, I analyzed the Twitter stream and filtered out some 16,000 tweets containing at least one of the candidates' last names. For each candidate I counted the occurences of words in tweets they were mentioned in. I matched the 1000 most frequently used words for each of the candidates with the Affective Norm of English Words (ANEW) dictionary containing 1030 rated words. The graphical represenation of these scores and their standard deviations yields psychological valence (pleasure) and arousal (excitement) ratings for the Twitter reactions to the candidates' performances during the debate. The plot above shows the differential valence and arousal ratings of the most frequently used words for each candidate with respect to their common mean. Lines show standard deviations above or below the mean. The most significant result is that John Kasich evokes the least unpleasant Twitter reactions from all four candidates.
-                            </p>
-                            <ul class="list-inline item-details">
-                                <li>Data source:
-                                    <strong><a href="https://dev.twitter.com/streaming/overview">Twitter API</a>
-                                    </strong>
-                                </li>
-                                <li>Data acquisition:
-                                    <strong><a href="https://github.com/ahwkuepper/twitter_sentiment_analysis/blob/master/gop.py">Python script</a>
-                                    </strong>
-                                </li>
-                                <li>ANEW:
-                                    <strong><a href="http://www.uvm.edu/~pdodds/teaching/courses/2009-08UVM-300/docs/others/everything/bradley1999a.pdf">Bradley & Lang (1999)</a>
-                                    </strong>
-                                </li>
-                                <li>Data analysis/visualization:
-                                    <strong><a href="https://github.com/ahwkuepper/twitter_sentiment_analysis/blob/master/gop_analysis.py">Python script</a>
-                                    </strong>
-                                </li>
                             </ul>
                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
                         </div>
